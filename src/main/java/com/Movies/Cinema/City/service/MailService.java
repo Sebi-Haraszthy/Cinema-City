@@ -1,14 +1,12 @@
 package com.Movies.Cinema.City.service;
 
 import com.Movies.Cinema.City.model.Order;
-import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.activation.DataSource;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
@@ -22,7 +20,7 @@ public class MailService {
         this.pdfService = pdfService;
     }
 
-    public void sendOrderConfirmationMessage(String recipientMail, Order order) throws MessagingException, DocumentException {
+    public void sendOrderConfirmationMessage(String recipientMail, Order order) throws Throwable {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
         mimeMessageHelper.setFrom("cursjustcodeit@gmail.com");

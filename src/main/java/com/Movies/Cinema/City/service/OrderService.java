@@ -4,7 +4,6 @@ import com.Movies.Cinema.City.DTO.OrderDTO;
 import com.Movies.Cinema.City.DTO.SeatDTO;
 import com.Movies.Cinema.City.model.*;
 import com.Movies.Cinema.City.repository.*;
-import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.mail.MessagingException;
 import java.util.Date;
 
 @Service
@@ -41,7 +39,7 @@ public class OrderService {
         this.mailService = mailService;
     }
 
-    public Order buyTicket(OrderDTO orderDTO) throws MessagingException, DocumentException, javax.mail.MessagingException {
+    public Order buyTicket(OrderDTO orderDTO) throws Throwable {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User foundUser = userRepository.findUserByUsername(userDetails.getUsername()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The user was not found!"));
         Order newOrder = new Order();
