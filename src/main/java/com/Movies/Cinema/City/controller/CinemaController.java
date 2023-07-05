@@ -29,9 +29,9 @@ public class CinemaController {
         return cinemaRoomService.getCinemaRooms();
     }
 
-    @PutMapping("/update/{cinemaRoomId}")
-    public CinemaRoom updateCinemaRoom(@RequestBody AddCinemaRoomDTO addCinemaRoomDTO, @PathVariable Long cinemaRoomId) {
-        return cinemaRoomService.updateCinemaRoom(addCinemaRoomDTO, cinemaRoomId);
+    @PutMapping("/update/{cinema_room_id}")
+    public CinemaRoom updateCinemaRoom(@RequestBody AddCinemaRoomDTO addCinemaRoomDTO, @PathVariable Long cinema_room_id) {
+        return cinemaRoomService.updateCinemaRoom(addCinemaRoomDTO, cinema_room_id);
     }
 
     @GetMapping("/getValueOfAllTicketsSoldByMovieAndDate/date")
@@ -39,23 +39,23 @@ public class CinemaController {
         return cinemaRoomService.getValueOfAllTicketsSoldByMovieAndDate(movieName, date);
     }
 
-    @GetMapping("/getValueOfTicketsSoldFromAllMoviesByDay/{cinemaRoomId}/date")
+    @GetMapping("/getValueOfTicketsSoldFromAllMoviesByDay/{cinema_room_id}/date")
     public Double getValueOfTicketsSoldFromAllMoviesByDay(@RequestBody LocalDate date) {
         return cinemaRoomService.getValueOfTicketsSoldFromAllMoviesByDay(date);
     }
 
-    @GetMapping("/getNumberOfAllTicketsSoldByMovie/{movieId}")
-    public Integer getNumberOfAllTicketsSoldByMovie(@PathVariable Long movieId) {
-        return cinemaRoomService.getNumberOfAllTicketsSoldByMovie(movieId);
+    @GetMapping("/getNumberOfAllTicketsSoldByMovie/{movie_id}")
+    public Integer getNumberOfAllTicketsSoldByMovie(@PathVariable Long movie_id) {
+        return cinemaRoomService.getNumberOfAllTicketsSoldByMovie(movie_id);
     }
 
-    @GetMapping("/getNumbersOfAllTicketsSoldByCinemaRoom/{cinemaRoomId}")
-    public Integer getNumbersOfAllTicketsSoldByCinemaRoom(@PathVariable Long cinemaRoomId) {
-        return cinemaRoomService.getNumbersOfAllTicketsSoldByCinemaRoom(cinemaRoomId);
+    @GetMapping("/getNumbersOfAllTicketsSoldByCinemaRoom/{cinema_room_id}")
+    public Integer getNumbersOfAllTicketsSoldByCinemaRoom(@PathVariable Long cinema_room_id) {
+        return cinemaRoomService.getNumbersOfAllTicketsSoldByCinemaRoom(cinema_room_id);
     }
 
-    @DeleteMapping("/delete/{cinemaRoomId}")
-    public void deleteCinemaRoom(@PathVariable Long cinemaRoomId) {
-        cinemaRoomService.deleteCinemaRoom(cinemaRoomId);
+    @DeleteMapping("/delete/{cinema_room_id}")
+    public void deleteCinemaRoom(@PathVariable Long cinema_room_id) {
+        cinemaRoomService.deleteCinemaRoom(cinema_room_id);
     }
 }

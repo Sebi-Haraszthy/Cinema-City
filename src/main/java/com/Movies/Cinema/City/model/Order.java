@@ -18,31 +18,19 @@ public class Order {
     private Date createdDate;
     @Column
     private Double totalPrice;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "order-ticket")
-    private List<Ticket> ticketList;
     @ManyToOne
     @JsonBackReference(value = "user-order")
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "order-ticket")
+    private List<Ticket> ticketList;
 
     public Order() {
     }
 
-    public Order(Long id, Date createdDate, Double totalPrice, List<Ticket> ticketList, User user) {
-        this.id = id;
-        this.createdDate = createdDate;
-        this.totalPrice = totalPrice;
-        this.ticketList = ticketList;
-        this.user = user;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Date getCreatedDate() {
@@ -61,10 +49,19 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public List<Ticket> getTicketList() {
         if (this.ticketList == null) {
             this.ticketList = new ArrayList<>();
         }
+
         return ticketList;
     }
 
@@ -72,11 +69,8 @@ public class Order {
         this.ticketList = ticketList;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public String toString() {
+        return "Order: " + "id = " + id + "; createdDate = " + createdDate + "; totalPrice = " + totalPrice + "; user = " + user + "; ticketList = " + ticketList + ".";
     }
 }

@@ -1,5 +1,6 @@
 package com.Movies.Cinema.City.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddMovieDTO {
@@ -31,19 +32,23 @@ public class AddMovieDTO {
         this.cinemaRoomId = cinemaRoomId;
     }
 
-    public List<ProjectionsDTO> getDates() {
-        return dates;
-    }
-
-    public void setDates(List<ProjectionsDTO> dates) {
-        this.dates = dates;
-    }
-
     public Integer getPrice() {
         return price;
     }
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public List<ProjectionsDTO> getDates() {
+        if (this.dates == null) {
+            this.dates = new ArrayList<>();
+        }
+
+        return dates;
+    }
+
+    public void setDates(List<ProjectionsDTO> dates) {
+        this.dates = dates;
     }
 }

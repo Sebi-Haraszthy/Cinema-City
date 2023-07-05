@@ -26,18 +26,23 @@ public class MovieController {
         return movieService.addMovie(addMovieDTO);
     }
 
-    @GetMapping("/projections-available/{movieId}")
-    public List<Projection> getAllProjectionsAvailable(@PathVariable Long movieId) {
-        return movieService.getAllProjectionsAvailable(movieId);
+    @GetMapping("/projections-available/{movie_id}")
+    public List<Projection> getAllProjectionsAvailable(@PathVariable Long movie_id) {
+        return movieService.getAllProjectionsAvailable(movie_id);
     }
 
-    @PutMapping("/update/{movieId}")
-    public Movie updateMovie(@RequestBody UpdateMovieDTO updateMovieDTO, @PathVariable Long movieId) {
-        return movieService.updateMovie(updateMovieDTO, movieId);
+    @PutMapping("/update/{movie_id}")
+    public Movie updateMovie(@RequestBody UpdateMovieDTO updateMovieDTO, @PathVariable Long movie_id) {
+        return movieService.updateMovie(updateMovieDTO, movie_id);
     }
 
-    @DeleteMapping("/delete/{movieId}")
-    public void deleteMovie(@PathVariable Long movieId) {
-        movieService.deleteMovie(movieId);
+    @DeleteMapping("/delete/{movie_id}")
+    public void deleteMovie(@PathVariable Long movie_id) {
+        movieService.deleteMovie(movie_id);
+    }
+
+    @GetMapping("/recommendations")
+    public List<String> getAllProjectionsAvailable() {
+        return movieService.getMovieRecommendations();
     }
 }

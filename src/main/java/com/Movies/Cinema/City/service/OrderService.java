@@ -45,7 +45,7 @@ public class OrderService {
         Order newOrder = new Order();
         newOrder.setCreatedDate(new Date());
         newOrder.setUser(foundUser);
-        Double totalPriceOrder = 0.0;
+        double totalPriceOrder = 0.0;
         Projection foundProjection = projectionRepository.findById(orderDTO.getProjectionId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The projection was not found!"));
 
         for (SeatDTO seatDTO : orderDTO.getSeats()) {
@@ -56,7 +56,7 @@ public class OrderService {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The seat at: " + foundSeat.getSeatRow() + " " + foundSeat.getSeatColumn() + " is not available!");
             }
 
-            totalPriceOrder += foundProjection.getMovie().getPrice() + foundTicket.getExtraPrice();
+            totalPriceOrder += foundProjection.getMovie().getPrice() + foundSeat.getExtraPrice();
             foundTicket.setAvailable(false);
             newOrder.getTicketList().add(foundTicket);
             foundTicket.setOrder(newOrder);

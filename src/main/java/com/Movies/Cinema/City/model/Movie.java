@@ -19,44 +19,26 @@ public class Movie {
     @Column
     private Integer price;
     @Column
-    private String overview;
-    @Column
     private String language;
     @Column
     private LocalDate releaseDate;
     @Column
     private Double voteAverage;
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "movie-projection")
-    private List<Projection> projectionList;
     @ManyToOne
     @JoinColumn(name = "cinema_room_id")
     @JsonBackReference(value = "cinema-movie")
     private CinemaRoom cinemaRoom;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "movie-projection")
+    private List<Projection> projectionList;
     @Convert(converter = StringListConverter.class)
     private List<String> genres;
 
     public Movie() {
     }
 
-    public Movie(Long id, String movieName, Integer price, String overview, String language, LocalDate releaseDate, Double voteAverage, List<Projection> projectionList, CinemaRoom cinemaRoom) {
-        this.id = id;
-        this.movieName = movieName;
-        this.price = price;
-        this.overview = overview;
-        this.language = language;
-        this.releaseDate = releaseDate;
-        this.voteAverage = voteAverage;
-        this.projectionList = projectionList;
-        this.cinemaRoom = cinemaRoom;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getMovieName() {
@@ -73,14 +55,6 @@ public class Movie {
 
     public void setPrice(Integer price) {
         this.price = price;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
     }
 
     public String getLanguage() {
@@ -107,17 +81,6 @@ public class Movie {
         this.voteAverage = voteAverage;
     }
 
-    public List<Projection> getProjectionList() {
-        if (this.projectionList == null) {
-            this.projectionList = new ArrayList<>();
-        }
-        return projectionList;
-    }
-
-    public void setProjectionList(List<Projection> projectionList) {
-        this.projectionList = projectionList;
-    }
-
     public CinemaRoom getCinemaRoom() {
         return cinemaRoom;
     }
@@ -126,11 +89,32 @@ public class Movie {
         this.cinemaRoom = cinemaRoom;
     }
 
+    public List<Projection> getProjectionList() {
+        if (this.projectionList == null) {
+            this.projectionList = new ArrayList<>();
+        }
+
+        return projectionList;
+    }
+
+    public void setProjectionList(List<Projection> projectionList) {
+        this.projectionList = projectionList;
+    }
+
     public List<String> getGenres() {
+        if (this.genres == null) {
+            this.genres = new ArrayList<>();
+        }
+
         return genres;
     }
 
     public void setGenres(List<String> genres) {
         this.genres = genres;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie: " + "id = " + id + "; movieName = " + movieName + "; price = " + price + "; language = " + language + "; releaseDate = " + releaseDate + "; voteAverage = " + voteAverage + "; cinemaRoom = " + cinemaRoom + "; projectionList = " + projectionList + "; genres = " + genres + ".";
     }
 }

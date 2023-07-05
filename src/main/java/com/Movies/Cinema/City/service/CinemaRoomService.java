@@ -6,6 +6,7 @@ import com.Movies.Cinema.City.model.*;
 import com.Movies.Cinema.City.repository.CinemaRoomRepository;
 import com.Movies.Cinema.City.repository.MovieRepository;
 import com.Movies.Cinema.City.repository.ProjectionRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -51,7 +53,7 @@ public class CinemaRoomService {
 
     private Optional<Seat> getSeatByRowAndColumn(CinemaRoom cinemaRoom, Integer row, Integer column) {
         return cinemaRoom.getSeatList().stream()
-                .filter((seat -> seat.getSeatRow() == row && seat.getSeatColumn() == column))
+                .filter((seat -> Objects.equals(seat.getSeatRow(), row) && Objects.equals(seat.getSeatColumn(), column)))
                 .findFirst();
     }
 
@@ -92,6 +94,11 @@ public class CinemaRoomService {
     }
 
     private Optional<Integer> computeProjectionsTotalPriceByDate(LocalDate date, List<Projection> projectionList) {
+        return getTotalValueOfTickets(date, projectionList);
+    }
+
+    @NotNull
+    private Optional<Integer> getTotalValueOfTickets(LocalDate date, List<Projection> projectionList) {
         Optional<Integer> totalValueOfTickets = projectionList.stream()
                 .filter(projection -> projection.getStartTime().toLocalDate().equals(date))
                 .flatMap(projection -> projection.getTicketList().stream())
@@ -114,18 +121,11 @@ public class CinemaRoomService {
     }
 
     private Optional<Integer> computeProjectionsTotalPriceByDay(LocalDate date, List<Projection> projectionList) {
-        Optional<Integer> totalValueOfTickets = projectionList.stream()
-                .filter(projection -> projection.getStartTime().toLocalDate().equals(date))
-                .flatMap(projection -> projection.getTicketList().stream())
-                .filter(ticket -> !ticket.getAvailable())
-                .map(ticket -> ticket.getSeat().getExtraPrice() + ticket.getProjection().getMovie().getPrice())
-                .reduce(Integer::sum);
-
-        return totalValueOfTickets;
+        return getTotalValueOfTickets(date, projectionList);
     }
 
     public Integer getNumberOfAllTicketsSoldByMovie(Long movieId) {
-        Integer totalTicketsNumber = 0;
+        int totalTicketsNumber = 0;
         Movie foundMovie = movieRepository.findById(movieId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The movie was not found!"));
 
         for (Projection projection : foundMovie.getProjectionList()) {
@@ -140,7 +140,7 @@ public class CinemaRoomService {
     }
 
     public Integer getNumbersOfAllTicketsSoldByCinemaRoom(Long cinemaRoomId) {
-        Integer totalNumberOfTicketsSold = 0;
+        int totalNumberOfTicketsSold = 0;
         CinemaRoom foundCinemaRoom = cinemaRoomRepository.findById(cinemaRoomId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The cinema was not found!"));
 
         for (Movie movie : foundCinemaRoom.getMovieList()) {

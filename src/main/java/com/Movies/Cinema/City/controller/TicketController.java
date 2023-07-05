@@ -25,9 +25,9 @@ public class TicketController {
         return ticketService.getValueOfTicketsSoldByDay(day);
     }
 
-    @GetMapping("/totalPrice/{day}/{movieName}")
-    public Long getValueOfTicketsSoldByDayAndMovieName(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day, @PathVariable String movieName) {
-        return ticketService.getValueOfTicketsSoldByDayAndMovieName(day, movieName);
+    @GetMapping("/totalPrice/{day}/{movie_name}")
+    public Long getValueOfTicketsSoldByDayAndMovieName(@PathVariable("day") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day, @PathVariable String movie_name) {
+        return ticketService.getValueOfTicketsSoldByDayAndMovieName(day, movie_name);
     }
 
     @GetMapping("/totalTickets/{day}")
@@ -35,8 +35,8 @@ public class TicketController {
         return ticketService.getNumberOfTicketsSoldByDay(day);
     }
 
-    @GetMapping("/totalTickets/{day}/{movieName}")
-    public Integer getNumberOfTicketsSoldByDayAndMovieName(@PathVariable LocalDate day, @PathVariable String movieName) {
-        return ticketService.getNumberOfTicketsSoldByDayAndMovieName(day, movieName);
+    @GetMapping("/totalTickets/{day}/{movie_name}")
+    public Integer getNumberOfTicketsSoldByDayAndMovieName(@PathVariable LocalDate day, @PathVariable String movie_name) {
+        return ticketService.getNumberOfTicketsSoldByDayAndMovieName(day, movie_name);
     }
 }

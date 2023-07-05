@@ -25,20 +25,8 @@ public class CinemaRoom {
     public CinemaRoom() {
     }
 
-    public CinemaRoom(Long id, int numberOfRows, int numberOfColumns, List<Movie> movieList, List<Seat> seatList) {
-        this.id = id;
-        this.numberOfRows = numberOfRows;
-        this.numberOfColumns = numberOfColumns;
-        this.movieList = movieList;
-        this.seatList = seatList;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getNumberOfRows() {
@@ -58,6 +46,10 @@ public class CinemaRoom {
     }
 
     public List<Movie> getMovieList() {
+        if (this.movieList == null) {
+            this.movieList = new ArrayList<>();
+        }
+
         return movieList;
     }
 
@@ -69,10 +61,16 @@ public class CinemaRoom {
         if (this.seatList == null) {
             this.seatList = new ArrayList<>();
         }
+
         return seatList;
     }
 
     public void setSeatList(List<Seat> seatList) {
         this.seatList = seatList;
+    }
+
+    @Override
+    public String toString() {
+        return "CinemaRoom: " + "id = " + id + "; numberOfRows = " + numberOfRows + "; numberOfColumns = " + numberOfColumns + "; movieList = " + movieList + "; seatList = " + seatList + ".";
     }
 }

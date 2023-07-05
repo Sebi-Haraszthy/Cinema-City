@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,21 +29,8 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(Long id, Integer seatRow, Integer seatColumn, Integer extraPrice, CinemaRoom cinemaRoom, List<Ticket> ticketList) {
-        this.id = id;
-        this.seatRow = seatRow;
-        this.seatColumn = seatColumn;
-        this.extraPrice = extraPrice;
-        this.cinemaRoom = cinemaRoom;
-        this.ticketList = ticketList;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getSeatRow() {
@@ -78,10 +66,19 @@ public class Seat {
     }
 
     public List<Ticket> getTicketList() {
+        if (this.ticketList == null) {
+            this.ticketList = new ArrayList<>();
+        }
+
         return ticketList;
     }
 
     public void setTicketList(List<Ticket> ticketList) {
         this.ticketList = ticketList;
+    }
+
+    @Override
+    public String toString() {
+        return "Seat: " + "id = " + id + "; seatRow = " + seatRow + "; seatColumn = " + seatColumn + "; extraPrice = " + extraPrice + "; cinemaRoom = " + cinemaRoom + "; ticketList = " + ticketList + ".";
     }
 }

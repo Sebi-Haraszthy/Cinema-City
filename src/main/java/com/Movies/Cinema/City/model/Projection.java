@@ -17,31 +17,19 @@ public class Projection {
     private LocalDateTime startTime;
     @Column
     private LocalDateTime endTime;
-    @OneToMany(mappedBy = "projection", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "projection-ticket")
-    private List<Ticket> ticketList;
     @ManyToOne
     @JoinColumn(name = "movie_id")
     @JsonBackReference(value = "movie-projection")
     private Movie movie;
+    @OneToMany(mappedBy = "projection", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "projection-ticket")
+    private List<Ticket> ticketList;
 
     public Projection() {
     }
 
-    public Projection(Long id, LocalDateTime startTime, LocalDateTime endTime, List<Ticket> ticketList, Movie movie) {
-        this.id = id;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.ticketList = ticketList;
-        this.movie = movie;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public LocalDateTime getStartTime() {
@@ -60,10 +48,19 @@ public class Projection {
         this.endTime = endTime;
     }
 
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
     public List<Ticket> getTicketList() {
         if (this.ticketList == null) {
             this.ticketList = new ArrayList<>();
         }
+
         return ticketList;
     }
 
@@ -71,11 +68,8 @@ public class Projection {
         this.ticketList = ticketList;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
+    @Override
+    public String toString() {
+        return "Projection: " + "id = " + id + "; startTime = " + startTime + "; endTime = " + endTime + "; movie = " + movie + "; ticketList = " + ticketList + ".";
     }
 }

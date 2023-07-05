@@ -29,20 +29,8 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, List<Role> roleList, List<Order> orderList) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.roleList = roleList;
-        this.orderList = orderList;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -73,6 +61,7 @@ public class User {
         if (this.roleList == null) {
             this.roleList = new ArrayList<>();
         }
+
         return roleList;
     }
 
@@ -84,10 +73,16 @@ public class User {
         if (this.orderList == null) {
             this.orderList = new ArrayList<>();
         }
+
         return orderList;
     }
 
     public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
+    }
+
+    @Override
+    public String toString() {
+        return "User: " + "id = " + id + "; username = " + username + "; password = " + password + "; email = " + email + "; roleList = " + roleList + "; orderList = " + orderList + ".";
     }
 }

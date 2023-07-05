@@ -3,7 +3,6 @@ package com.Movies.Cinema.City.service;
 import com.Movies.Cinema.City.model.Movie;
 import com.Movies.Cinema.City.model.Projection;
 import com.Movies.Cinema.City.model.Ticket;
-import com.Movies.Cinema.City.repository.CinemaRoomRepository;
 import com.Movies.Cinema.City.repository.MovieRepository;
 import com.Movies.Cinema.City.repository.ProjectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +17,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
-    private CinemaRoomRepository cinemaRoomRepository;
     private MovieRepository movieRepository;
     private ProjectionRepository projectionRepository;
 
     @Autowired
-    public TicketService(CinemaRoomRepository cinemaRoomRepository, MovieRepository movieRepository, ProjectionRepository projectionRepository) {
-        this.cinemaRoomRepository = cinemaRoomRepository;
+    public TicketService(MovieRepository movieRepository, ProjectionRepository projectionRepository) {
         this.movieRepository = movieRepository;
         this.projectionRepository = projectionRepository;
     }
-
 
     public Long getValueOfTicketsSoldByDay(LocalDate certainDay) {
         List<Projection> allProjections = projectionRepository.findAll();
@@ -45,7 +41,7 @@ public class TicketService {
         List<Ticket> soldTickets = getSoldTicketsForProjectionsByDay(certainDay, projectionList);
 
         return soldTickets.stream().
-                map(ticket -> computeTicketPrice(ticket)).
+                map(this::computeTicketPrice).
                 reduce(Integer::sum);
     }
 
@@ -73,8 +69,7 @@ public class TicketService {
     }
 
     private Long computeProjectionsTotalTicketsByDay(LocalDate certainDay, List<Projection> allProjections) {
-        return getSoldTicketsForProjectionsByDay(certainDay, allProjections).stream()
-                .count();
+        return (long) getSoldTicketsForProjectionsByDay(certainDay, allProjections).size();
     }
 
     public Integer getNumberOfTicketsSoldByDay(LocalDate certainDay) {

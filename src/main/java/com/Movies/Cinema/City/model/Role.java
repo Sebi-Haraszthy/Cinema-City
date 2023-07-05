@@ -24,10 +24,6 @@ public class Role {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public RoleType getRoleType() {
         return roleType;
     }
@@ -40,10 +36,16 @@ public class Role {
         if (userList == null) {
             userList = new ArrayList<>();
         }
+
         return userList;
     }
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    @Override
+    public String toString() {
+        return "Role: " + "id = " + id + "; roleType = " + roleType + "; userList = " + userList + ".";
     }
 }

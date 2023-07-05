@@ -27,20 +27,8 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Long id, Boolean isAvailable, Seat seat, Projection projection, Order order) {
-        this.id = id;
-        this.isAvailable = isAvailable;
-        this.seat = seat;
-        this.projection = projection;
-        this.order = order;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Boolean getAvailable() {
@@ -75,7 +63,8 @@ public class Ticket {
         this.order = order;
     }
 
-    public Integer getExtraPrice() {
-        return seat.getExtraPrice();
+    @Override
+    public String toString() {
+        return "Ticket: " + "id = " + id + "; isAvailable = " + isAvailable + "; seat = " + seat + "; projection = " + projection + "; order = " + order + ".";
     }
 }

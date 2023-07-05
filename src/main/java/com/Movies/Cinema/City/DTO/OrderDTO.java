@@ -1,5 +1,6 @@
 package com.Movies.Cinema.City.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDTO {
@@ -20,6 +21,10 @@ public class OrderDTO {
     }
 
     public List<SeatDTO> getSeats() {
+        if (this.seats == null) {
+            this.seats = new ArrayList<>();
+        }
+
         return seats;
     }
 
