@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDTO {
-    private long projectionId;
+    private long projection_id;
     private List<SeatDTO> seats;
 
-    public OrderDTO(long projectionId, List<SeatDTO> seats) {
-        this.projectionId = projectionId;
+    public OrderDTO(long projection_id, List<SeatDTO> seats) {
+        this.projection_id = projection_id;
         this.seats = seats;
     }
 
-    public long getProjectionId() {
-        return projectionId;
+    public long getProjection_id() {
+        return projection_id;
     }
 
-    public void setProjectionId(long projectionId) {
-        this.projectionId = projectionId;
+    public void setProjection_id(long projection_id) {
+        this.projection_id = projection_id;
     }
 
     public List<SeatDTO> getSeats() {

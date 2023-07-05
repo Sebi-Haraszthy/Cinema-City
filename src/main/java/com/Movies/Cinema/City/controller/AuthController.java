@@ -6,6 +6,7 @@ import com.Movies.Cinema.City.model.User;
 import com.Movies.Cinema.City.service.JwtTokenService;
 import com.Movies.Cinema.City.service.UserDetailsServiceImpl;
 import com.Movies.Cinema.City.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,10 +21,18 @@ import java.util.Map;
 
 @RestController
 public class AuthController {
-    private JwtTokenService jwtTokenService;
     private AuthenticationManager authenticationManager;
+    private JwtTokenService jwtTokenService;
     private UserDetailsServiceImpl userDetailsService;
     private UserService userService;
+
+    @Autowired
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenService jwtTokenService, UserDetailsServiceImpl userDetailsService, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenService = jwtTokenService;
+        this.userDetailsService = userDetailsService;
+        this.userService = userService;
+    }
 
     @PostMapping("/authenticate")
     public String authenticate(@RequestBody AuthDTO user) {

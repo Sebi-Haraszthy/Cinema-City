@@ -39,7 +39,7 @@ public class CinemaController {
         return cinemaRoomService.getValueOfAllTicketsSoldByMovieAndDate(movieName, date);
     }
 
-    @GetMapping("/getValueOfTicketsSoldFromAllMoviesByDay/{cinema_room_id}/date")
+    @GetMapping("/getValueOfTicketsSoldFromAllMoviesByDay/date")
     public Double getValueOfTicketsSoldFromAllMoviesByDay(@RequestBody LocalDate date) {
         return cinemaRoomService.getValueOfTicketsSoldFromAllMoviesByDay(date);
     }

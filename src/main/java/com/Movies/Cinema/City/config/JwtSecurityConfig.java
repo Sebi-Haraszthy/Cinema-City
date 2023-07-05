@@ -1,7 +1,6 @@
 package com.Movies.Cinema.City.config;
 
 import com.Movies.Cinema.City.service.JwtRequestFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class JwtSecurityConfig {
-    @Autowired
     private JwtRequestFilter jwtRequestFilter;
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
@@ -31,6 +29,10 @@ public class JwtSecurityConfig {
             "/swagger-ui/**"
             // other public endpoints of your API may be appended to this array
     };
+
+    public JwtSecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

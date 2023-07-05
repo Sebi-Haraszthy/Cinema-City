@@ -18,20 +18,16 @@ import java.util.Date;
 @Transactional
 public class OrderService {
     public static final String ORDER_MAIL_SUBJECT = "Your tickets to the movie";
-    private UserRepository userRepository;
-    private CinemaRoomRepository cinemaRoomRepository;
-    private MovieRepository movieRepository;
-    private ProjectionRepository projectionRepository;
-    private SeatRepository seatRepository;
-    private TicketRepository ticketRepository;
-    private OrderRepository orderRepository;
-    private MailService mailService;
+    private final UserRepository userRepository;
+    private final ProjectionRepository projectionRepository;
+    private final SeatRepository seatRepository;
+    private final TicketRepository ticketRepository;
+    private final OrderRepository orderRepository;
+    private final MailService mailService;
 
     @Autowired
-    public OrderService(UserRepository userRepository, CinemaRoomRepository cinemaRoomRepository, MovieRepository movieRepository, ProjectionRepository projectionRepository, SeatRepository seatRepository, TicketRepository ticketRepository, OrderRepository orderRepository, MailService mailService) {
+    public OrderService(UserRepository userRepository, ProjectionRepository projectionRepository, SeatRepository seatRepository, TicketRepository ticketRepository, OrderRepository orderRepository, MailService mailService) {
         this.userRepository = userRepository;
-        this.cinemaRoomRepository = cinemaRoomRepository;
-        this.movieRepository = movieRepository;
         this.projectionRepository = projectionRepository;
         this.seatRepository = seatRepository;
         this.ticketRepository = ticketRepository;
@@ -46,7 +42,7 @@ public class OrderService {
         newOrder.setCreatedDate(new Date());
         newOrder.setUser(foundUser);
         double totalPriceOrder = 0.0;
-        Projection foundProjection = projectionRepository.findById(orderDTO.getProjectionId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The projection was not found!"));
+        Projection foundProjection = projectionRepository.findById(orderDTO.getProjection_id()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The projection was not found!"));
 
         for (SeatDTO seatDTO : orderDTO.getSeats()) {
             Seat foundSeat = seatRepository.findBySeatRowAndSeatColumnAndCinemaRoom(seatDTO.getRow(), seatDTO.getColumn(), foundProjection.getMovie().getCinemaRoom());
