@@ -40,6 +40,19 @@ public class CinemaRoomService {
         return cinemaRoomRepository.save(cinemaRoom);
     }
 
+    private void generateSeatsForCinemaRoom(AddCinemaRoomDTO addCinemaRoomDTO, CinemaRoom cinemaRoom) {
+        for (int i = 0; i < addCinemaRoomDTO.getNumberOfRows(); i++) {
+            for (int j = 0; j < addCinemaRoomDTO.getNumberOfColumns(); j++) {
+                Seat seat = new Seat();
+                seat.setSeatRow(i + 1);
+                seat.setSeatColumn(j + 1);
+                seat.setExtraPrice(0);
+                cinemaRoom.getSeatList().add(seat);
+                seat.setCinemaRoom(cinemaRoom);
+            }
+        }
+    }
+
     private void generateExtraPricesForCinemaRoom(AddCinemaRoomDTO addCinemaRoomDTO, CinemaRoom cinemaRoom) {
         for (ExtraPriceDTO extraPriceDTO : addCinemaRoomDTO.getExtraPrices()) {
             for (int i = extraPriceDTO.getStartingRow(); i <= extraPriceDTO.getEndingRow(); i++) {
@@ -55,19 +68,6 @@ public class CinemaRoomService {
         return cinemaRoom.getSeatList().stream()
                 .filter((seat -> Objects.equals(seat.getSeatRow(), row) && Objects.equals(seat.getSeatColumn(), column)))
                 .findFirst();
-    }
-
-    private void generateSeatsForCinemaRoom(AddCinemaRoomDTO addCinemaRoomDTO, CinemaRoom cinemaRoom) {
-        for (int i = 0; i < addCinemaRoomDTO.getNumberOfRows(); i++) {
-            for (int j = 0; j < addCinemaRoomDTO.getNumberOfColumns(); j++) {
-                Seat seat = new Seat();
-                seat.setSeatRow(i + 1);
-                seat.setSeatColumn(j + 1);
-                seat.setExtraPrice(0);
-                cinemaRoom.getSeatList().add(seat);
-                seat.setCinemaRoom(cinemaRoom);
-            }
-        }
     }
 
     public List<CinemaRoom> getCinemaRooms() {

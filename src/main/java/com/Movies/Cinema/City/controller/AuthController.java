@@ -38,6 +38,7 @@ public class AuthController {
     public String authenticate(@RequestBody AuthDTO user) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+
         return jwtTokenService.generateToken(userDetails);
     }
 
